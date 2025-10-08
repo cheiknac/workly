@@ -1,0 +1,21 @@
+
+services:
+  backend: 
+    build: ./backend
+    container_name: workly-backend
+    ports:
+      - "3000:3000"
+    env_file:
+      - ./backend/.env
+    volumes:
+      - ./backend:/app
+    command: npm run dev
+
+  backoffice:
+    build: ./backoffice
+    container_name: workly-backoffice
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
+
