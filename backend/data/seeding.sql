@@ -1,113 +1,93 @@
 BEGIN;
 
-DROP TABLE IF EXISTS user;
-DROP TABLE IF EXISTS event_user;
-DROP TABLE IF EXISTS event;
-DROP TABLE IF EXISTS group_user;
-DROP TABLE IF EXISTS group;
-DROP TABLE IF EXISTS event_group;
-DROP TABLE IF EXISTS announcement_user;
-DROP TABLE IF EXISTS announcement;
-DROP TABLE IF EXISTS notification_announcement;
-DROP TABLE IF EXISTS notification;
-DROP TABLE IF EXISTS event_notification;
-DROP TABLE IF EXISTS notification_user;
 
-CREATE TABLE "user" (
-    id INTEGER GENERATED ALWAYS AS IDENTITY NOT NULL PRIMARY KEY,
-    lastname TEXT NOT NULL,
-    firstname TEXT NOT NULL,
-    email TEXT NOT NULL UNIQUE,
-    password_hash TEXT NOT NULL,
-    role TEXT NOT NULL,
-    created_at timestamptz NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    updated_at timestamptz
-);
-
-CREATE TABLE "event_user" (
-    PRIMARY KEY (id_event, id_user),
-    id_event INTEGER NOT NULL,
-    id_event INTERGER NOT NULL,
-    creator TEXT NOT NULL
-);
-
-CREATE TABLE "event" (
-    id INTEGER GENERATED ALWAYS AS IDENTITY NOT NULL PRIMARY KEY,
-    title TEXT NOT NULL,
-    date_event TIMESTAMP NOT NULL CHECK CURRENT_TIMESTAMP,
-    name TEXT NOT NULL,
-    address TEXT NOT NULL,
-    zip_code VARCHAR(5) NOT NULL CHECK ( zip_code ~ '^\d{5}$'),
-    town TEXT NOT NULL,
-    country TEXT NOT NULL,
-    status TEXT NOT NULL,
-    created_at timestamptz NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    updated_at timestamptz
-);
-
-CREATE TABLE "group_user" (
-    PRIMARY KEY (id_groupe, id_user)
-    id_group INTERGER NOT NULL,
-    id_user INTEGER NOT NULL
-);
-
-CREATE TABLE "group" (
-     lastname TEXT NOT NULL,
-     firstname TEXT NOT NULL
-);
-
-CREATE TABLE "event_group" (
-    PRIMARY KEY (id_event, id_group)
-    id_event INTEGER NOT NULL,
-    id_group INTEGER NOT NULL
-);
-
-CREATE TABLE "announcement_user" (
-    PRIMARY KEY (id_announcement, id_user)
-    id_announcement INTEGER NOT NULL,
-    id_user INTEGER NOT NULL
-);
-
-CREATE TABLE "announcement" (
-    id INTEGER GENERATED ALWAYS AS IDENTITY NOT NULL PRIMARY KEY,
-    title TEXT NOT NULL,
-    date_announcement TIMESTAMP NOT NULL CHECK CURRENT_TIMESTAMP,
-    message TEX NOT NULL,
-    created_at timestamptz NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    updated_at timestamptz
-);
-
-CREATE TABLE "notification_announcement" (
-    PRIMARY KEY (id_announcement, id_user),
-    id_notification INTEGER NOT NULL,
-    id_announcement INTERGER NOT NULL
-);
-
-CREATE TABLE "notification" (
-    id INTEGER GENERATED ALWAYS AS IDENTITY NOT NULL PRIMARY KEY,
-    title TEXT NOT NULL,
-    message TEXT NOT NULL,
-    send_at timestamptz NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    is_view timestamptz NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    type TEXT NOT NULL,
-    link TEXT NOT NULL
-);
-
-CREATE TABLE "event_notification" (
-    PRIMARY KEY (id_event, id_notification),
-    id_event INTEGER NOT NULL,
-    id_notification INTEGER NOT NULL
-);
-
-CREATE TABLE "notification_user" (
-    PRIMARY KEY (id_notification, id_user),
-    id_notification INTEGER NOT NULL,
-    id_user INTEGER NOT NULL
-)
+INSERT INTO "user" (lastname, firstname, email, password_hash, role, status) 
+    VALUES
+        ('Gaspard', 'Vincent', 'vincentgaspard@test.com', 'hjksljjszhkbwhz', 'user', 'valide'),
+        ('Mamour', 'Alexandre', 'alexmamour@test.com', 'husiahsuzdgdz', 'user', 'en attente'),
+        ('Champion', 'Elodie', 'elodiechampion@test.com', 'jnvffvjfoorvo', 'admin', 'bloqué');
 
 
-ALTER TABLE notification_user ADD FOREIGN KEY (id_notification) REFERENCES notification (id);
-ALTER TABLE notification_user ADD FOREIGN KEY (id_user) REFERENCES "user" (id);
 
-ALTER TABLE event_notification ADD FOREIGN KEY (id_event) REFERENCES event (id);
-ALTER TABLE event_notification ADD FOREIGN KEY (id_notification) REFERENCES "notication" (id);
+INSERT INTO "event" (title, date_event, name, address, zip_code, city, country, status, creator_id)
+    VALUES
+        ('Sortie Pub', '2026-01-01 09:30:56', 'Le bistrot', '4 rue de la reine', '92100', 'Boulogne-billancourt', 'France', 'valide', 1),
+        ('Sortie bowling', '2026-01-05 09:30:56', 'La place des jeux', '20 rue carnot', '93100', 'Stain', 'France', 'valide', 2),
+        ('Sortie Escape', '2026-01-10 00:39:56', 'Escape Game', '55 boulevard des terne', '94000', 'Créteil', 'France', 'valide', 3);
+
+
+INSERT INTO "event_user" (id_event, id_user)
+    VALUES
+        (1, 1),
+        (2, 2);
+
+
+INSERT INTO "group" (lastname, firstname)
+    VALUES
+        (1, 1),
+        (2, 2);
+
+
+
+INSERT INTO "group_user" (id_group, id_user)
+    VALUES
+        (1, 1),
+        (1, 2),
+        (2, 1);
+
+
+
+
+
+INSERT INTO "event_group" (id_event, id_group)
+    VALUES
+        (1, 1),
+        (2, 2);
+
+
+
+INSERT INTO "announcement" (title, date_announcement, message) 
+    VALUES
+        ('Réunion avec la direction', '2026-01-01 09:30:56', 'Annonce sur les projet aerospace, les nouvelle rêgle du group'),
+        ('Barbecue annuel', '2026-01-01 09:30:56', 'Annonce sur les projet aerospace, les nouvelle rêgle du group');
+
+
+
+INSERT INTO "announcement_user" (id_announcement, id_user)
+    VALUES
+        (1, 1),
+        (1, 2),
+        (2, 2);
+
+
+
+INSERT INTO "notification" (title, message, send_at, is_view, type, link)
+    VALUES
+        ('Nouvelle réunion', 'Nous discuteroons des nouvelles procédure', NOW(), 'true', 'comité', 'https://advbe.com'),
+        ('Sortie Bowling', 'Sortie bowling à paris', NOW(), 'false', 'évènement', 'https://advbe.com');
+
+
+
+INSERT INTO "notification_announcement" (id_notification, id_announcement)
+    VALUES
+        (1, 1),
+        (2, 2);
+
+
+
+
+INSERT INTO "event_notification" (id_event, id_notification)
+    VALUES
+        (1, 1),
+        (2, 2);
+
+
+
+
+INSERT INTO "notification_user" (id_notification, id_user)
+    VALUES
+        (1, 1),
+        (1, 2);
+
+
+COMMIT;

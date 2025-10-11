@@ -11,6 +11,22 @@ services:
       - ./backend:/app
     command: npm run dev
 
+
+  database:
+    image: postgres:14
+    container_name: workly-database
+    restart: always
+    environment:
+      POSTGRES_USER: workly2026
+      POSTGRES_PASSWORD: workly22692
+      POSTGRES_DB: workly2026
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./data:/docker-entrypoint-initdb.d
+      - pgdata:/var/lib/postgresql/data
+
+
   backoffice:
     build: ./backoffice
     container_name: workly-backoffice
@@ -19,3 +35,5 @@ services:
     depends_on:
       - backend
 
+volumes:
+  pgdata:

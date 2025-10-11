@@ -5,7 +5,10 @@
   "type": "module",
   "scripts": {
     "start": "node index.js",
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "db:init": "PGPASSWORD=workly22692 psql -U workly2026 -d workly2026 -h localhost -f data/init.sql",
+    "db:seed": "PGPASSWORD=workly22692 psql -U workly2026 -d workly2026 -h localhost -f data/seeding.sql",
+    "db:reset": "PGPASSWORD=workly22692 psql -U workly2026 -d workly2026 -h localhost -f data/init.sql && PGPASSWORD=workly22692 psql -U workly2026 -d workly2026 -h localhost -f data/seeding.sql"
   },
   "keywords": [],
   "author": "Cheickna Coulibaly",
