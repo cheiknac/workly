@@ -1,12 +1,13 @@
-import { sequelize } from 'sequelize';
+import 'dotenv/config';
+import Sequelize from 'sequelize';
 
-if (!config.PG_URL) {
-    throw new Error ("config.PG_URL est manquant !");
+if (!process.env.PG_URL) {
+    throw new Error ("La variable d'environnement PG_URL est manquant !");
 }
 
-const sequelize = new sequelize(config.PG_URL, {
+const sequelize = new Sequelize(process.env.PG_URL, {
     dialect: 'postgres',
-    logging: 'false',
+    logging: false,
 });
 
-export { sequelize };
+export default sequelize;

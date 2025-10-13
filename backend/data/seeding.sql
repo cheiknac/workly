@@ -1,7 +1,7 @@
 BEGIN;
 
 
-INSERT INTO "user" (lastname, firstname, email, password_hash, role, status) 
+INSERT INTO "users" (lastname, firstname, email, password_hash, role, status) 
     VALUES
         ('Gaspard', 'Vincent', 'vincentgaspard@test.com', 'hjksljjszhkbwhz', 'user', 'valide'),
         ('Mamour', 'Alexandre', 'alexmamour@test.com', 'husiahsuzdgdz', 'user', 'en attente'),
@@ -63,8 +63,8 @@ INSERT INTO "announcement_user" (id_announcement, id_user)
 
 INSERT INTO "notification" (title, message, send_at, is_view, type, link)
     VALUES
-        ('Nouvelle réunion', 'Nous discuteroons des nouvelles procédure', NOW(), 'true', 'comité', 'https://advbe.com'),
-        ('Sortie Bowling', 'Sortie bowling à paris', NOW(), 'false', 'évènement', 'https://advbe.com');
+        ('Nouvelle réunion', 'Nous discuteroons des nouvelles procédure', NOW(), true, 'comité', 'https://advbe.com'),
+        ('Sortie Bowling', 'Sortie bowling à paris', NOW(), false, 'évènement', 'https://advbe.com');
 
 
 

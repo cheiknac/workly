@@ -12,10 +12,10 @@ DROP TABLE IF EXISTS notification;
 DROP TABLE IF EXISTS announcement;
 DROP TABLE IF EXISTS event;
 DROP TABLE IF EXISTS "group";
-DROP TABLE IF EXISTS "user";
+DROP TABLE IF EXISTS users;
 
 
-CREATE TABLE "user" (
+CREATE TABLE "users" (
     id INTEGER GENERATED ALWAYS AS IDENTITY NOT NULL PRIMARY KEY,
     lastname TEXT NOT NULL,
     firstname TEXT NOT NULL,
@@ -57,7 +57,7 @@ CREATE TABLE "event_user" (
     id_user INTEGER NOT NULL,
     PRIMARY KEY (id_event, id_user),
     FOREIGN KEY (id_event) REFERENCES event(id) ON DELETE CASCADE,
-    FOREIGN KEY (id_user) REFERENCES "user"(id) ON DELETE CASCADE
+    FOREIGN KEY (id_user) REFERENCES users(id) ON DELETE CASCADE
 );
 
 CREATE TABLE "group_user" (
@@ -65,7 +65,7 @@ CREATE TABLE "group_user" (
     id_user INTEGER NOT NULL,
     PRIMARY KEY (id_group, id_user),
     FOREIGN KEY (id_group) REFERENCES "group"(id) ON DELETE CASCADE,
-    FOREIGN KEY (id_user) REFERENCES "user"(id) ON DELETE CASCADE
+    FOREIGN KEY (id_user) REFERENCES users(id) ON DELETE CASCADE
 );
 
 
@@ -94,7 +94,7 @@ CREATE TABLE "announcement_user" (
     id_user INTEGER NOT NULL,
     PRIMARY KEY (id_announcement, id_user),
     FOREIGN KEY (id_announcement) REFERENCES announcement(id) ON DELETE CASCADE,
-    FOREIGN KEY (id_user) REFERENCES "user"(id) ON DELETE CASCADE
+    FOREIGN KEY (id_user) REFERENCES users(id) ON DELETE CASCADE
 );
 
 
@@ -133,30 +133,30 @@ CREATE TABLE "notification_user" (
     id_user INTEGER NOT NULL,
     PRIMARY KEY (id_notification, id_user),
     FOREIGN KEY (id_notification) REFERENCES notification(id) ON DELETE CASCADE,
-    FOREIGN KEY (id_user) REFERENCES "user"(id) ON DELETE CASCADE
+    FOREIGN KEY (id_user) REFERENCES users(id) ON DELETE CASCADE
 );
 
 
 ALTER TABLE event_user ADD FOREIGN KEY (id_event) REFERENCES event (id);
-ALTER TABLE event_user ADD FOREIGN KEY (id_user) REFERENCES "user" (id);
+ALTER TABLE event_user ADD FOREIGN KEY (id_user) REFERENCES users (id);
 
 ALTER TABLE group_user ADD FOREIGN KEY (id_group) REFERENCES "group" (id);
-ALTER TABLE group_user ADD FOREIGN KEY (id_user) REFERENCES "user" (id);
+ALTER TABLE group_user ADD FOREIGN KEY (id_user) REFERENCES users (id);
 
 ALTER TABLE event_group ADD FOREIGN KEY (id_event) REFERENCES event (id);
 ALTER TABLE event_group ADD FOREIGN KEY (id_group) REFERENCES "group" (id);
 
 ALTER TABLE announcement_user ADD FOREIGN KEY (id_announcement) REFERENCES announcement (id);
-ALTER TABLE announcement_user ADD FOREIGN KEY (id_user) REFERENCES "user" (id);
+ALTER TABLE announcement_user ADD FOREIGN KEY (id_user) REFERENCES users (id);
 
 ALTER TABLE event_notification ADD FOREIGN KEY (id_event) REFERENCES event (id);
 ALTER TABLE event_notification ADD FOREIGN KEY (id_notification) REFERENCES notification (id);
 
 ALTER TABLE notification_user ADD FOREIGN KEY (id_notification) REFERENCES notification (id);
-ALTER TABLE notification_user ADD FOREIGN KEY (id_user) REFERENCES "user" (id);
+ALTER TABLE notification_user ADD FOREIGN KEY (id_user) REFERENCES users (id);
 
 
-ALTER TABLE event ADD FOREIGN KEY (creator_id) REFERENCES "user" (id);
+ALTER TABLE event ADD FOREIGN KEY (creator_id) REFERENCES users (id);
 
 
 COMMIT;

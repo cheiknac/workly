@@ -1,13 +1,13 @@
 import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
-import primaryRouter from './src/routers/index.js';
+import mainRouter from './src/routers/index.js';
 
 const app = express();
 
 app.use(cors())
 
-app.use(primaryRouter);
+app.use(mainRouter);
 
 const host = process.env.HOST;
 const port = process.env.PORT || 3000;

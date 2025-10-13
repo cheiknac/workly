@@ -1,9 +1,15 @@
 import { Router } from 'express';
+import '../models/association.js';
 
-const primaryRouter = Router();
+import userRouter from './user.js';
 
-primaryRouter.get('/', (req, res) => {
+const mainRouter = Router();
+
+mainRouter.get('/', (req, res) => {
     res.send("Hello World my Backend")
 });
 
-export default primaryRouter;
+mainRouter.use(userRouter);
+
+
+export default mainRouter;

@@ -2,54 +2,66 @@ import 'dotenv/config';
 import { DataTypes, Model } from 'sequelize';
 import sequelize from '../client/client.js';
 
+class Event extends Model {}
 
-class User extends Model {}
-
-User.init( 
+Event.init (
     {
-        lastname: {
+        title: {
             type: DataTypes.STRING,
             allowNull: false,
         },
 
-        firstname: {
+        date_event: {
+            type: DataTypes.DATE,
+            allowNull: false,
+        },
+
+        name: {
             type: DataTypes.STRING,
             allowNull: false,
         },
 
-        email: {
+        address: {
             type: DataTypes.STRING,
             allowNull: false,
-            unique: true,
+        },
+
+        zip_code: {
+            type: DataTypes.STRING(5),
+            allowNull: false,
             validate: {
-                isEmail: true,
+                is: /^\d{5}$/,
             },
         },
 
-        password_hash: {
+        city: {
             type: DataTypes.STRING,
             allowNull: false,
         },
 
-        role: {
+        country: {
             type: DataTypes.STRING,
             allowNull: false,
-        },
+        }, 
 
         status: {
-            type: DataTypes.ENUM('en_attente', 'valide', 'bloqué'),
-            allowNull: false,
-            defaultValue: 'en_attente',
+            type: DataTypes.ENUM('en_attente', 'valide', 'bloqué')
         },
+
+        creator_id: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+        }
     },
+
     {
         sequelize,
-        modeleName: 'User',
-        tableName: 'users',
+        modelName: 'Event',
+        tableName: 'events',
         timestamps: true,
         createdAt: 'created_at', 
         updatedAt: 'updated_at',
     }
 );
 
-export default User;
+export default Event;
