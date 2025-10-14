@@ -11,7 +11,8 @@ userRouter
 userRouter
     .route('/users/:id')
     .get(userController.getOneUser)
-    .patch(userController.updateUser);
+    .patch(userController.updateUser)
+    .delete(userController.deleteUser);
 
 
 export default userRouter;

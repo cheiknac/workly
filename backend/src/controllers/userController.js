@@ -140,7 +140,41 @@ const userController = {
                 message: 'Erreur serveur lors de la mise à jour de l’utilisateur.'
             });
         }
+    },
+
+/*  ---------------------------------------------------------------------   */
+
+    /* Supprimer un utilisateur */
+
+    async deleteUser(req, res) {
+
+        try {
+            const { id } = req.params;
+
+            const dltUser = await User.findByPk(id);
+
+            if (!dltUser) {
+                return res.status(404).json({
+                    success: false,
+                    message: 'Utilisateur non trouvé.',
+                });
+            }
+
+            await dltUser.destroy();
+
+            res.status(200).json({
+                success: true,
+                message: 'Utilisateur supprimé avec succès.',
+            });
+        } catch (error) {
+            console.error("Erreur lors de la suppression de l'utilisateur :", error);
+            res.status(500).json({
+                succes: false,
+                message: 'Erreur serveur lors de la suppression de l\'utilisateur.'
+            });
+        }
     }
+    
     
 
 };
