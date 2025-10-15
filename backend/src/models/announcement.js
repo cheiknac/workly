@@ -25,7 +25,7 @@ Announcement.init (
     {
         sequelize,
         modelName: 'Announcement',
-        tableName: 'announcements',
+        tableName: 'announcement',
         timestamps: true,
         createdAt: 'created_at', 
         updatedAt: 'updated_at',
