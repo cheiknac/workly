@@ -4,11 +4,15 @@ import announcementController from '../controllers/announcementController.js';
 const anmRouter = Router();
 
 anmRouter
-    .route('/announcement')
-    .get(announcementController.getAllAnnouncement);
+    .route('/announcements')
+    .get(announcementController.getAllAnnouncement)
+    .post(announcementController.createAnnouncement);
 
 anmRouter
-    .route('/announcement/:id')
-    .get(announcementController.getOneAnnouncement);
+    .route('/announcements/:id')
+    .get(announcementController.getOneAnnouncement)
+    .patch(announcementController.updateAnnoncement)
+    .delete(announcementController.deleteAnnouncement);
+
 
 export default anmRouter;

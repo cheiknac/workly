@@ -105,7 +105,7 @@ const userController = {
 
 /*  ---------------------------------------------------------------------   */
 
-    /* Modifier les informations */
+    /* Modifier les informations d'un utilisateur */
 
     async updateUser(req, res) {
         

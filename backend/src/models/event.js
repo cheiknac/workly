@@ -45,7 +45,8 @@ Event.init (
         }, 
 
         status: {
-            type: DataTypes.ENUM('en_attente', 'valide', 'bloqué')
+            type: DataTypes.ENUM('en_attente', 'valide', 'bloqué'),
+            defaultValue: 'en attente',
         },
 
         creator_id: {
@@ -57,7 +58,7 @@ Event.init (
     {
         sequelize,
         modelName: 'Event',
-        tableName: 'events',
+        tableName: 'event',
         timestamps: true,
         createdAt: 'created_at', 
         updatedAt: 'updated_at',
