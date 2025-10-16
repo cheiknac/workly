@@ -11,7 +11,7 @@ DROP TABLE IF EXISTS group_user;
 DROP TABLE IF EXISTS notification;
 DROP TABLE IF EXISTS announcement;
 DROP TABLE IF EXISTS event;
-DROP TABLE IF EXISTS "group";
+DROP TABLE IF EXISTS groups;
 DROP TABLE IF EXISTS users;
 
 
@@ -44,10 +44,11 @@ CREATE TABLE "event" (
 );
 
 
-CREATE TABLE "group" (
+CREATE TABLE "groups" (
     id INTEGER GENERATED ALWAYS AS IDENTITY NOT NULL PRIMARY KEY,
-    lastname TEXT NOT NULL,
-    firstname TEXT NOT NULL
+    group_name TEXT NOT NULL,
+    created_at timestamptz NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at timestamptz
 );
 
 
@@ -64,7 +65,7 @@ CREATE TABLE "group_user" (
     id_group INTEGER NOT NULL,
     id_user INTEGER NOT NULL,
     PRIMARY KEY (id_group, id_user),
-    FOREIGN KEY (id_group) REFERENCES "group"(id) ON DELETE CASCADE,
+    FOREIGN KEY (id_group) REFERENCES groups(id) ON DELETE CASCADE,
     FOREIGN KEY (id_user) REFERENCES users(id) ON DELETE CASCADE
 );
 
@@ -75,7 +76,7 @@ CREATE TABLE "event_group" (
     id_group INTEGER NOT NULL,
     PRIMARY KEY (id_event, id_group),
     FOREIGN KEY (id_event) REFERENCES event(id) ON DELETE CASCADE,
-    FOREIGN KEY (id_group) REFERENCES "group"(id) ON DELETE CASCADE
+    FOREIGN KEY (id_group) REFERENCES groups(id) ON DELETE CASCADE
 );
 
 
@@ -105,7 +106,9 @@ CREATE TABLE "notification" (
     send_at timestamptz NOT NULL DEFAULT CURRENT_TIMESTAMP,
     is_view BOOLEAN DEFAULT FALSE,
     type TEXT NOT NULL,
-    link TEXT NOT NULL
+    link TEXT NOT NULL,
+    created_at timestamptz NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at timestamptz
 );
 
 
@@ -140,11 +143,11 @@ CREATE TABLE "notification_user" (
 ALTER TABLE event_user ADD FOREIGN KEY (id_event) REFERENCES event (id);
 ALTER TABLE event_user ADD FOREIGN KEY (id_user) REFERENCES users (id);
 
-ALTER TABLE group_user ADD FOREIGN KEY (id_group) REFERENCES "group" (id);
+ALTER TABLE group_user ADD FOREIGN KEY (id_group) REFERENCES groups (id);
 ALTER TABLE group_user ADD FOREIGN KEY (id_user) REFERENCES users (id);
 
 ALTER TABLE event_group ADD FOREIGN KEY (id_event) REFERENCES event (id);
-ALTER TABLE event_group ADD FOREIGN KEY (id_group) REFERENCES "group" (id);
+ALTER TABLE event_group ADD FOREIGN KEY (id_group) REFERENCES groups (id);
 
 ALTER TABLE announcement_user ADD FOREIGN KEY (id_announcement) REFERENCES announcement (id);
 ALTER TABLE announcement_user ADD FOREIGN KEY (id_user) REFERENCES users (id);

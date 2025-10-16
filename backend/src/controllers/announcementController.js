@@ -1,4 +1,4 @@
-import Announcement from "../models/announcement.js";
+import Announcement from "../models/Announcement.js";
 
 const announcementController = {
 

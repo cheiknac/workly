@@ -1,5 +1,4 @@
-import Announcement from "../models/announcement.js";
-import Event from "../models/event.js";
+import Event from "../models/Event.js";
 
 const eventController = {
 

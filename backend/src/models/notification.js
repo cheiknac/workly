@@ -23,15 +23,15 @@ Notification.init (
         },
 
         is_view: {
-                type: DataTypes.ENUM('lu', 'non-lu'),
+                type: DataTypes.BOOLEAN,
                 allowNull: false,
                 defaultValue: false,
         },
 
         type: {
-                type: DataTypes.BOOLEAN,
+                type: DataTypes.ENUM('annonce', 'événement', 'global'),
                 allowNull: false,
-                defaultValue: 'annonce',
+                defaultValue: 'global',
         },
 
         link: {
@@ -44,7 +44,7 @@ Notification.init (
         {
             sequelize,
             modelName: 'Notification',
-            tableName: 'notifications',
+            tableName: 'notification',
             timestamps: true,
             createdAt: 'created_at', 
             updatedAt: 'updated_at',

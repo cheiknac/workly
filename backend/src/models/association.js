@@ -1,10 +1,10 @@
 import sequelize from '../client/client.js';
 
-import Announcement from './announcement.js';
-import Notification from './notification.js';
-import Event from './event.js';
-import Group from './group.js';
-import User from './user.js';
+import Announcement from './Announcement.js';
+import Notification from './Notification.js';
+import Event from './Event.js';
+import Group from './Group.js';
+import User from './User.js';
 
 import Announcement_user from './jointure/announcement_user.js';
 import Event_group from './jointure/event_group.js';
@@ -16,29 +16,29 @@ import Notification_user from './jointure/notification_user.js';
 
 
 /* USER - GROUP : Many-to-Many via Group_user */
-User.belongsToMany(Group, { 
-    through: Group_user, 
-    foreignKey: 'id_user', 
-    as: 'groupes' 
+User.belongsToMany(Group, {
+  through: 'group_user',
+  foreignKey: 'id_user',
+  otherKey: 'id_group'
 });
 
 Group.belongsToMany(User, { 
-    through: Group_user, 
+    through: 'group_user', 
     foreignKey: 'id_group', 
-    as: 'utilisateurs' 
+    otherKey: 'id_user',
 });
 
 
 /* GROUP - EVENT : Many-to-Many via Event_group */
 
 Group.belongsToMany(Event, { 
-    through: Event_group, 
+    through: 'event_group', 
     foreignKey: 'id_group', 
     as: 'evenements' 
 });
 
 Event.belongsToMany(Group, { 
-    through: Event_group, 
+    through: 'event_group', 
     foreignKey: 'id_event', 
     as: 'groupes' 
 });
@@ -47,13 +47,13 @@ Event.belongsToMany(Group, {
 /* USER - EVENT : Many-to-Many via Event_user */
 
 User.belongsToMany(Event, { 
-    through: Event_user, 
+    through: 'event_user', 
     foreignKey: 'id_user', 
     as: 'evenements' 
 });
 
 Event.belongsToMany(User, { 
-    through: Event_user, 
+    through: 'event_user', 
     foreignKey: 'id_event', 
     as: 'participants' 
 });
@@ -62,13 +62,13 @@ Event.belongsToMany(User, {
 /* USER - ANNOUNCEMENT : Many-to-Many via Announcement_user */
 
 User.belongsToMany(Announcement, { 
-    through: Announcement_user, 
+    through: 'announcement_user', 
     foreignKey: 'id_user', 
     as: 'annonces' 
 });
 
 Announcement.belongsToMany(User, { 
-    through: Announcement_user, 
+    through: 'announcement_user', 
     foreignKey: 'id_announcement', 
     as: 'destinataires' 
 });
@@ -76,13 +76,13 @@ Announcement.belongsToMany(User, {
 /* ANNOUNCEMENT - NOTIFICATION : Many-to-Many via Notification_announcement */
 
 Announcement.belongsToMany(Notification, { 
-    through: Notification_announcement, 
+    through: 'notification_announcement', 
     foreignKey: 'id_announcement', 
     as: 'notifications' 
 });
 
 Notification.belongsToMany(Announcement, { 
-    through: Notification_announcement, 
+    through: 'notification_announcement', 
     foreignKey: 'id_notification', 
     as: 'annonces' 
 });
@@ -90,13 +90,13 @@ Notification.belongsToMany(Announcement, {
 /* EVENT - NOTIFICATION : Many-to-Many via Notification_event */
 
 Event.belongsToMany(Notification, { 
-    through: Notification_event, 
+    through: 'notification_event', 
     foreignKey: 'id_event', 
     as: 'notifications' 
 });
 
 Notification.belongsToMany(Event, { 
-    through: Notification_event, 
+    through: 'notification_event', 
     foreignKey: 'id_notification', 
     as: 'evenements' 
 });
@@ -104,13 +104,13 @@ Notification.belongsToMany(Event, {
 /* USER - NOTIFICATION : Many-to-Many via Notification_user */
 
 User.belongsToMany(Notification, { 
-    through: Notification_user, 
+    through: 'notification_user', 
     foreignKey: 'id_user', 
     as: 'notifications' 
 });
 
 Notification.belongsToMany(User, { 
-    through: Notification_user, 
+    through: 'notification_user', 
     foreignKey: 'id_notification', 
     as: 'destinataires' 
 });

@@ -22,11 +22,10 @@ INSERT INTO "event_user" (id_event, id_user)
         (2, 2);
 
 
-INSERT INTO "group" (lastname, firstname)
+INSERT INTO "groups" (group_name)
     VALUES
-        (1, 1),
-        (2, 2);
-
+        ('Team marketing'),
+        ('Comptabilté');
 
 
 INSERT INTO "group_user" (id_group, id_user)
@@ -34,8 +33,6 @@ INSERT INTO "group_user" (id_group, id_user)
         (1, 1),
         (1, 2),
         (2, 1);
-
-
 
 
 
