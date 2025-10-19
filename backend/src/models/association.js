@@ -3,45 +3,14 @@ import sequelize from '../client/client.js';
 import Announcement from './Announcement.js';
 import Notification from './Notification.js';
 import Event from './Event.js';
-import Group from './Group.js';
 import User from './User.js';
 
-import Announcement_user from './jointure/announcement_user.js';
-import Event_group from './jointure/event_group.js';
-import Event_user from './jointure/event_user.js';
-import Group_user from './jointure/group_user.js';
-import Notification_announcement from './jointure/notification_anouncement.js';
-import Notification_event from './jointure/notification_event.js';
-import Notification_user from './jointure/notification_user.js';
+import Announcement_user from './jointure/Announcement_user.js';
+import Event_user from './jointure/Event_user.js';
+import Notification_announcement from './jointure/Notification_anouncement.js';
+import Notification_event from './jointure/Notification_event.js';
+import Notification_user from './jointure/Notification_user.js';
 
-
-/* USER - GROUP : Many-to-Many via Group_user */
-User.belongsToMany(Group, {
-  through: 'group_user',
-  foreignKey: 'id_user',
-  otherKey: 'id_group'
-});
-
-Group.belongsToMany(User, { 
-    through: 'group_user', 
-    foreignKey: 'id_group', 
-    otherKey: 'id_user',
-});
-
-
-/* GROUP - EVENT : Many-to-Many via Event_group */
-
-Group.belongsToMany(Event, { 
-    through: 'event_group', 
-    foreignKey: 'id_group', 
-    as: 'evenements' 
-});
-
-Event.belongsToMany(Group, { 
-    through: 'event_group', 
-    foreignKey: 'id_event', 
-    as: 'groupes' 
-});
 
 
 /* USER - EVENT : Many-to-Many via Event_user */
@@ -115,4 +84,4 @@ Notification.belongsToMany(User, {
     as: 'destinataires' 
 });
 
-export default sequelize; User, Announcement, Event, Group, Notification, Announcement_user, Event_group, Event_user, Group_user, Notification_announcement, Notification_event, Notification_user;
+export default sequelize; User, Announcement, Event, Notification, Announcement_user, Event_user, Notification_announcement, Notification_event, Notification_user;

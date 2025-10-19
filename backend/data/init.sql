@@ -6,13 +6,11 @@ DROP TABLE IF EXISTS event_notification;
 DROP TABLE IF EXISTS notification_announcement;
 DROP TABLE IF EXISTS announcement_user;
 DROP TABLE IF EXISTS event_user;
-DROP TABLE IF EXISTS event_group;
-DROP TABLE IF EXISTS group_user;
 DROP TABLE IF EXISTS notification;
 DROP TABLE IF EXISTS announcement;
 DROP TABLE IF EXISTS event;
-DROP TABLE IF EXISTS groups;
 DROP TABLE IF EXISTS users;
+
 
 
 CREATE TABLE "users" (
@@ -44,39 +42,12 @@ CREATE TABLE "event" (
 );
 
 
-CREATE TABLE "groups" (
-    id INTEGER GENERATED ALWAYS AS IDENTITY NOT NULL PRIMARY KEY,
-    group_name TEXT NOT NULL,
-    created_at timestamptz NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    updated_at timestamptz
-);
-
-
-
 CREATE TABLE "event_user" (
     id_event INTEGER NOT NULL,
     id_user INTEGER NOT NULL,
     PRIMARY KEY (id_event, id_user),
     FOREIGN KEY (id_event) REFERENCES event(id) ON DELETE CASCADE,
     FOREIGN KEY (id_user) REFERENCES users(id) ON DELETE CASCADE
-);
-
-CREATE TABLE "group_user" (
-    id_group INTEGER NOT NULL,
-    id_user INTEGER NOT NULL,
-    PRIMARY KEY (id_group, id_user),
-    FOREIGN KEY (id_group) REFERENCES groups(id) ON DELETE CASCADE,
-    FOREIGN KEY (id_user) REFERENCES users(id) ON DELETE CASCADE
-);
-
-
-
-CREATE TABLE "event_group" (
-    id_event INTEGER NOT NULL,
-    id_group INTEGER NOT NULL,
-    PRIMARY KEY (id_event, id_group),
-    FOREIGN KEY (id_event) REFERENCES event(id) ON DELETE CASCADE,
-    FOREIGN KEY (id_group) REFERENCES groups(id) ON DELETE CASCADE
 );
 
 
@@ -142,12 +113,6 @@ CREATE TABLE "notification_user" (
 
 ALTER TABLE event_user ADD FOREIGN KEY (id_event) REFERENCES event (id);
 ALTER TABLE event_user ADD FOREIGN KEY (id_user) REFERENCES users (id);
-
-ALTER TABLE group_user ADD FOREIGN KEY (id_group) REFERENCES groups (id);
-ALTER TABLE group_user ADD FOREIGN KEY (id_user) REFERENCES users (id);
-
-ALTER TABLE event_group ADD FOREIGN KEY (id_event) REFERENCES event (id);
-ALTER TABLE event_group ADD FOREIGN KEY (id_group) REFERENCES groups (id);
 
 ALTER TABLE announcement_user ADD FOREIGN KEY (id_announcement) REFERENCES announcement (id);
 ALTER TABLE announcement_user ADD FOREIGN KEY (id_user) REFERENCES users (id);

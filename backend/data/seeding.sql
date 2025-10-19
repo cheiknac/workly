@@ -19,27 +19,10 @@ INSERT INTO "event" (title, date_event, name, address, zip_code, city, country, 
 INSERT INTO "event_user" (id_event, id_user)
     VALUES
         (1, 1),
-        (2, 2);
-
-
-INSERT INTO "groups" (group_name)
-    VALUES
-        ('Team marketing'),
-        ('Comptabilté');
-
-
-INSERT INTO "group_user" (id_group, id_user)
-    VALUES
-        (1, 1),
         (1, 2),
-        (2, 1);
+        (2, 2),
+        (2, 3);
 
-
-
-INSERT INTO "event_group" (id_event, id_group)
-    VALUES
-        (1, 1),
-        (2, 2);
 
 
 

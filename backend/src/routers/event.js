@@ -14,5 +14,16 @@ evtRouter
     .patch(eventController.updateEvent)
     .delete(eventController.deleteEvent);
 
+evtRouter
+    .route('/events/:eventId/:participants/:userId')
+    .get(eventController.getOneParticipants)
+    .post(eventController.addParticipant)
+    .delete(eventController.deleteParticipant);
+
+evtRouter
+    .route('/events/:id/participants')
+    .get(eventController.getAllParticipants);
+
+
 
 export default evtRouter;

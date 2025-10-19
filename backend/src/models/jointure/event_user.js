@@ -9,18 +9,20 @@ Event_user.init (
         id_event: {
             type: DataTypes.INTEGER,
             allowNull: false,
+            primaryKey: true
         },
 
         id_user: {
             type: DataTypes.INTEGER,
             allowNull: false,
+            primaryKey: true
         }
     },
 
     {
         sequelize,
         modelName: 'Event_user',
-        tableName: 'events_users',
+        tableName: 'event_user',
         timestamps: false,
     }
 );
